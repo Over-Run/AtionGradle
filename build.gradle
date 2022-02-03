@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'maven-publish'
+}
+version '0.0.1'
+group 'io.github.overrun'
+archivesBaseName = 'Ation-Gradle'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //author baka4n
+    implementation gradleApi()
+    implementation('commons-io:commons-io:2.11.0')
+    implementation('com.google.code.gson:gson:2.8.9')
+    implementation('org.ow2.asm:asm:9.2')
+    implementation('org.ow2.asm:asm-commons:9.2')
+    implementation('org.ow2.asm:asm-tree:9.2')
+}
+
+publishing {
+    repositories {
+        maven {
+            url "${projectDir}/build"
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            from components.java
+        }
+    }
+}
