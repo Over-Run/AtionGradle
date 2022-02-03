@@ -5,8 +5,10 @@ import org.gradle.api.Project;
 import java.io.File;
 
 public class AtionGradleExtensions {
-	public static final  String gameVersion = "1.18.1";
-	public static final String mainClientClass = "net.minecraft.client.main.Main";
+	public String gameVersion = "1.18.1";
+	public String mainClientClass = "net.minecraft.client.main.Main";
+	public String tweakClass = null;
+	public String mixinRefMap = null;
 
 	final Project project;
 
