@@ -1,0 +1,97 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.overrun",
+    "module": "ation-gradle",
+    "version": "0.0.1-alpha",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.3.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "ation-gradle-0.0.1-alpha.jar",
+          "url": "ation-gradle-0.0.1-alpha.jar",
+          "size": 2580,
+          "sha512": "6f1d41cff44b44aaad4988241a8622d67313930b3492681749f986499d8cb454704e07a79fec47ff37b5d875734d338afa9478de7eee9b94e4d626b6779ef984",
+          "sha256": "d27cf7ef17f0ff3d8d9438ea2434780c96a1302f8cdeaae733e0520193a7f6ef",
+          "sha1": "287b264e91ef91b111c4d3077c8639c36056c386",
+          "md5": "60f48beb5d20e544ab08f2aac5d44662"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "commons-io",
+          "module": "commons-io",
+          "version": {
+            "requires": "2.11.0"
+          }
+        },
+        {
+          "group": "com.google.code.gson",
+          "module": "gson",
+          "version": {
+            "requires": "2.8.9"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm",
+          "version": {
+            "requires": "9.2"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm-commons",
+          "version": {
+            "requires": "9.2"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm-tree",
+          "version": {
+            "requires": "9.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "ation-gradle-0.0.1-alpha.jar",
+          "url": "ation-gradle-0.0.1-alpha.jar",
+          "size": 2580,
+          "sha512": "6f1d41cff44b44aaad4988241a8622d67313930b3492681749f986499d8cb454704e07a79fec47ff37b5d875734d338afa9478de7eee9b94e4d626b6779ef984",
+          "sha256": "d27cf7ef17f0ff3d8d9438ea2434780c96a1302f8cdeaae733e0520193a7f6ef",
+          "sha1": "287b264e91ef91b111c4d3077c8639c36056c386",
+          "md5": "60f48beb5d20e544ab08f2aac5d44662"
+        }
+      ]
+    }
+  ]
+}
