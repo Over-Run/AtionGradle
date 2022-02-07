@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
 }
-version '0.0.1'
+version '1.0.0'
 group 'io.github.overrun'
 archivesBaseName = 'Ation-Gradle'
 

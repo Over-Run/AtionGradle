@@ -12,7 +12,6 @@ import org.gradle.api.Project;
 public class AtionGradlePlugin implements Plugin<Project> {
 	@Override
 	public void apply(Project project) {
-		project.getLogger().lifecycle("Hello Develop Plugin");
 
 		project.getExtensions().create("ation gradle extensions", AtionGradleExtensions.class, project);
 
@@ -21,6 +20,11 @@ public class AtionGradlePlugin implements Plugin<Project> {
 			after.getRepositories().maven(mavenArtifactRepository -> {
 				mavenArtifactRepository.setName("minecraft");
 				mavenArtifactRepository.setUrl(UrlUtil.game_libraries);
+			});
+
+			after.getRepositories().maven(mavenArtifactRepository -> {
+				mavenArtifactRepository.setName("overrun");
+				mavenArtifactRepository.setUrl("https://over-run.github.io/maven/");
 			});
 
 			after.getRepositories().maven(mavenArtifactRepository -> {

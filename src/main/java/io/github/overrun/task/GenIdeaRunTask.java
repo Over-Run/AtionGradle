@@ -28,7 +28,7 @@ public class GenIdeaRunTask extends Task{
 		programArgs.append("--gameDir").append(" ").append(getProject().getRootProject().file("run").getAbsolutePath()).append(" ");
 
 		try {
-			String idea = IOUtils.toString(Objects.requireNonNull(GenIdeaRunTask.class.getResourceAsStream("/Modloader_Develop_Client.xml")), StandardCharsets.UTF_8);
+			String idea = IOUtils.toString(Objects.requireNonNull(GenIdeaRunTask.class.getResourceAsStream("/ation_gradle_client.xml")), StandardCharsets.UTF_8);
 
 			idea = idea.replace("%NAME%", "ation gradle Client");
 			idea = idea.replace("%MAIN_CLASS%", ationGradleExtensions.mainClientClass);
@@ -38,7 +38,7 @@ public class GenIdeaRunTask extends Task{
 			String projectPath = getProject() == getProject().getRootProject() ? "" : getProject().getPath().replace(":", "_");
 			File ideaConfigurationDir = getProject().getRootProject().file(".idea");
 			File runConfigurations = new File(ideaConfigurationDir, "runConfigurations");
-			File clientRunConfiguration = new File(runConfigurations, "ation_gradle_Client" + projectPath + ".xml");
+			File clientRunConfiguration = new File(runConfigurations, "ation_gradle_client" + projectPath + ".xml");
 			if (!runConfigurations.exists()) {
 				//noinspection ResultOfMethodCallIgnored
 				runConfigurations.mkdir();
