@@ -1,3 +1,3 @@
-# Ation Gradle（Overrun）
+# AtionGradle（Overrun）
 
-Ation Gradle构建工具，使用开发Ation模组，OverRun团队开发。
+AtionGradle构建工具，使用AtionGradle开发编程Ation模组，OverRun团队开发。
