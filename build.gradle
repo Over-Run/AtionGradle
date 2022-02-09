@@ -3,9 +3,9 @@ plugins {
     id 'idea'
     id 'maven-publish'
 }
-version '1.0.0'
+version '0.0.1-alpha'
 group 'io.github.overrun'
-archivesBaseName = 'Ation-Gradle'
+archivesBaseName = 'AtionGradle'
 
 
 repositories {
