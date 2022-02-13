@@ -12,7 +12,6 @@ import static io.github.overrun.util.UrlUtil.readFile;
 import static io.github.overrun.util.UrlUtil.readString;
 
 public class MinecraftUtil {
-
 	public static File getMinecraftDirs() {
 		File minecraftFolder;
 
@@ -106,9 +105,10 @@ public class MinecraftUtil {
 	}
 
 	public static File getClientAssetsIndexesDir(AtionGradleExtensions ationGradleExtensions) {
+		File assetsIndexes = new File(ationGradleExtensions.getUserCachePath() + File.separatorChar + "assets" + File.separatorChar + "indexes");
 		File indexes = new File(getClientAssetsDir(ationGradleExtensions), "indexes");
 		if (!indexes.exists()) {
-			indexes.mkdir();
+			indexes.mkdirs();
 		}
 		return indexes;
 	}

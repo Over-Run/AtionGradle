@@ -9,7 +9,8 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 public class UrlUtil {
-	public static final String game_url = "https://launchermeta.mojang.com/mc/game.version_mainfest_v2.json";
+	public static final String game_url = "https://launchermeta.mojang.com/mc/game/version_manifest.json"; // new downloading
+//	public static final String game_url = "https://launchermeta.mojang.com/mc/game.version_mainfest_v2.json";
 	public static final String game_libraries = "https://libraries.minecraft.net";
 	public static final String game_resource = "https://resources.download.minecraft.net";
 	public static String readString(String link) {

@@ -9,8 +9,7 @@ public class AtionGradleExtensions {
 	public String mainClientClass = "net.minecraft.client.main.Main";
 	public String tweakClass = null;
 	public String mixinRefMap = null;
-
-	final Project project;
+	public final Project project;
 
 	public AtionGradleExtensions(Project project) {
 		this.project = project;
@@ -22,4 +21,9 @@ public class AtionGradleExtensions {
 			file.mkdir();
 		return file;
 	}
+
+	public String getUserCachePath() {
+		return project.getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separator + "caches" + File.separator + "ation-gradle";
+	}
+
 }

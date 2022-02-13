@@ -40,17 +40,13 @@ public class AtionGradlePlugin implements Plugin<Project> {
 
 			after.getPlugins().apply("java");
 			after.getPlugins().apply("idea");
-			after.getTasks().create("DownloadGame", DownloadMinecraftClientTask.class, downloadGameTask -> downloadGameTask.setGroup("ation-gradle"));
-			after.getTasks().create("DownloadMapping", DownloadMappingTask.class, downloadMappingTask -> downloadMappingTask.setGroup("ation-gradle"));
-			after.getTasks().create("DownloadAssets", DownloadAssetsTask.class, downloadAssetsTask -> downloadAssetsTask.setGroup("ation-gradle"));
+			after.getTasks().create("downloadAll", DownLoadingAll.class, downLoadingAll -> downLoadingAll.setGroup("ation-gradle"));
 			after.getTasks().create("CleanClient", CleanMinecraftClientTask.class, cleanClientTask -> cleanClientTask.setGroup("ation-gradle"));
 			after.getTasks().create("RemappingClass", RemappingTask.class, remappingTask -> remappingTask.setGroup("ation-gradle"));
 			after.getTasks().create("GenIdeaRun", GenIdeaRunTask.class, genIdeaRunTask -> genIdeaRunTask.setGroup("ation-gradle"));
 
 			after.getTasks().getByName("idea").finalizedBy(
-					after.getTasks().getByName("DownloadGame"),
-					after.getTasks().getByName("DownloadMapping"),
-					after.getTasks().getByName("DownloadAssets"),
+					after.getTasks().getByName("downloadAll"),
 					after.getTasks().getByName("CleanClient"),
 					after.getTasks().getByName("GenIdeaRun"));
 
