@@ -8,7 +8,6 @@ import io.github.overrun.AtionGradleExtensions;
 import java.io.File;
 import java.util.*;
 
-import static io.github.overrun.util.UrlUtil.readFile;
 import static io.github.overrun.util.UrlUtil.readString;
 
 public class MinecraftUtil {
@@ -29,10 +28,6 @@ public class MinecraftUtil {
 		return System.getProperty("os.name").toLowerCase(Locale.ROOT);
 	}
 
-	public static File getLocalClient(AtionGradleExtensions ationGradleExtensions){
-	    return new File(getMinecraftDirs(), "versions/" + ationGradleExtensions.gameVersion + "/" + ationGradleExtensions.gameVersion + ".jar");
-	}
-
 	public static File getGameDir(AtionGradleExtensions ationGradleExtensions) {
 		File game = new File(ationGradleExtensions.getUserCache(), "game");
 		if (!game.exists()) {
@@ -48,18 +43,6 @@ public class MinecraftUtil {
 
 	public static File getClientCleanFile(AtionGradleExtensions ationGradleExtensions) {
 		return new File(getGameDir(ationGradleExtensions), ationGradleExtensions.gameVersion + "/" + ationGradleExtensions.gameVersion + "-client-clean.jar");
-	}
-
-	public static File getClientCleanSourceFile(AtionGradleExtensions ationGradleExtensions) {
-		return new File(getGameDir(ationGradleExtensions), ationGradleExtensions.gameVersion + "/" + ationGradleExtensions.gameVersion + "-client-clean-source.jar");
-	}
-
-	public static String getRelease() {
-		return new Gson().fromJson(readString(UrlUtil.game_url), JsonObject.class).get("latest").getAsJsonObject().get("release").getAsString();
-	}
-
-	public static String getSnapshot() {
-		return new Gson().fromJson(readString(UrlUtil.game_url), JsonObject.class).get("snapshot").getAsJsonObject().get("release").getAsString();
 	}
 
 	public static String getJson(String version) {
@@ -84,77 +67,12 @@ public class MinecraftUtil {
 		return new File(getMappingDir(ationGradleExtensions), ationGradleExtensions.gameVersion + "-client.txt");
 	}
 
-	public static byte[] getClientJar(AtionGradleExtensions ationGradleExtensions) {
-		return readFile(new Gson().fromJson(getJson(ationGradleExtensions.gameVersion), JsonObject.class).get("downloads").getAsJsonObject().get("client").getAsJsonObject().get("url").getAsString());
-	}
-
-	public static String getClientMapping(AtionGradleExtensions ationGradleExtensions) {
-		return readString(new Gson().fromJson(getJson(ationGradleExtensions.gameVersion), JsonObject.class).getAsJsonObject("downloads").getAsJsonObject().get("client_mappings").getAsJsonObject().get("url").getAsString());
-	}
-
-	public static String getClientAssets(AtionGradleExtensions ationGradleExtensions) {
-		return readString(new Gson().fromJson(getJson(ationGradleExtensions.gameVersion), JsonObject.class).get("assetIndex").getAsJsonObject().get("url").getAsString());
-	}
-
 	public static File getClientAssetsDir(AtionGradleExtensions ationGradleExtensions) {
 		File assets = new File(ationGradleExtensions.getUserCache(), "assets");
 		if (!assets.exists()) {
 			assets.mkdir();
 		}
 		return assets;
-	}
-
-	public static File getClientAssetsIndexesDir(AtionGradleExtensions ationGradleExtensions) {
-		File assetsIndexes = new File(ationGradleExtensions.getUserCachePath() + File.separatorChar + "assets" + File.separatorChar + "indexes");
-		File indexes = new File(getClientAssetsDir(ationGradleExtensions), "indexes");
-		if (!indexes.exists()) {
-			indexes.mkdirs();
-		}
-		return indexes;
-	}
-
-	public static File getClientAssetsObjectsDir(AtionGradleExtensions ationGradleExtensions) {
-		File objects = new File(getClientAssetsDir(ationGradleExtensions), "objects");
-		if (!objects.exists()) {
-			objects.mkdir();
-		}
-		return objects;
-	}
-
-	public static File getClientAssetsSkinsDir(AtionGradleExtensions ationGradleExtensions) {
-		File objects = new File(getClientAssetsDir(ationGradleExtensions), "skins");
-		if (!objects.exists()) {
-			objects.mkdir();
-		}
-		return objects;
-	}
-
-	public static File getClientAssetsIndexFile(AtionGradleExtensions ationGradleExtensions) {
-		return new File(getClientAssetsIndexesDir(ationGradleExtensions), ationGradleExtensions.gameVersion + ".json");
-	}
-
-	public static File getClientAssetsObjectFile(AtionGradleExtensions ationGradleExtensions, String name) {
-		File file = new File(getClientAssetsObjectsDir(ationGradleExtensions), name.substring(0, 2));
-		if (!file.exists()) {
-			file.mkdir();
-		}
-		return new File(file, name);
-	}
-
-	public static File getLocalClientAssetsDir() {
-		return new File(getMinecraftDirs(), "assets");
-	}
-
-	public static File getLocalClientAssetsObjectsDir() {
-		return new File(getLocalClientAssetsDir(), "objects");
-	}
-
-	public static File getLocalClientAssetsObjectFile(String name) {
-		return new File(getLocalClientAssetsObjectsDir(), name.substring(0, 2) + "/" + name);
-	}
-
-	public static File getLocalClientAssetsSkinsDir() {
-		return new File(getLocalClientAssetsDir(), "skins");
 	}
 
 	public static File getClientNativeDir(AtionGradleExtensions ationGradleExtensions) {

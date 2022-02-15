@@ -13,10 +13,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import static io.github.overrun.util.Universal.isMkdirs;
 import static io.github.overrun.util.UrlUtil.readString;
 
 public class DownLoadingAll extends Task{
-
+	public static DownLoadingAll downLoadingAll = new DownLoadingAll();
+	public static final String get_user_dir = System.getProperty("user.dir");
+	public final String
+			version_mainfest = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "version_mainfest.json",
+			indexes = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "assets" + File.separatorChar + "indexes" + File.separatorChar + getAssetsIndex("id") + ".json",
+			client_version = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "MC" + File.separatorChar + ationGradleExtensions.gameVersion,
+			server_version = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "Server" + File.separatorChar + ationGradleExtensions.gameVersion,
+			mappings = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "mappings",
+			object_file = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "assets" + File.separatorChar + "objects",
+			object_back = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "assets" + File.separatorChar + "virtual" + File.separatorChar + "legacy";
 	public static String jsonUrl;
 	public static String getJson(String version) {
 		for (JsonElement versions : new Gson().fromJson(readString(UrlUtil.game_url), JsonObject.class).get("versions").getAsJsonArray()) {
@@ -28,58 +38,49 @@ public class DownLoadingAll extends Task{
 	}
 
 	public static String getAssetsIndex(String name) {
-		return new Gson().fromJson(getJson(new DownLoadingAll().version_mainfest), JsonObject.class).get("assetsIndex").getAsJsonObject().get(name).getAsString();
+		return new Gson().fromJson(getJson(downLoadingAll.version_mainfest), JsonObject.class).get("assetsIndex").getAsJsonObject().get(name).getAsString();
 	}
 
-	public final String object_file = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "assets" + File.separatorChar + "objects";
-	public final String object_back = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "assets" + File.separatorChar + "virtual" + File.separatorChar + "legacy";
 	public static void getAssetsObject() {
-		JsonObject gson = new Gson().fromJson(new DownLoadingAll().indexes, JsonObject.class).get("objects").getAsJsonObject();
+		JsonObject gson = new Gson().fromJson(downLoadingAll.indexes, JsonObject.class).get("objects").getAsJsonObject();
 		for (String key : gson.keySet()) {
-			String object_url = UrlUtil.game_resource + gson.get(key).getAsJsonObject().get("hash").getAsString();
-			File file = new File(new DownLoadingAll().object_file + File.separatorChar + gson.get(key).getAsJsonObject().get("hash").getAsString().substring(0, 2));
-			File file1 = new File(new DownLoadingAll().object_back + File.separatorChar + gson.get(key).getAsJsonObject().get("hash").getAsString().substring(0, 2));
-			if (file.exists()) {
-				file.mkdirs();
-			}
-			if (file1.exists()) {
-				file1.mkdirs();
-			}
-			Download.download(object_url, file.getAbsolutePath() + File.separatorChar + gson.get(key).getAsJsonObject().get("hash").getAsString());
-			Download.download(object_url, file1.getAbsolutePath() + File.separatorChar + gson.get(key).getAsJsonObject().get("hash").getAsString());
+			String object_url = UrlUtil.game_resource + gson.get(key).getAsJsonObject().get("hash").getAsString(), a = new DownLoadingAll().object_file + File.separatorChar + gson.get(key).getAsJsonObject().get("hash").getAsString().substring(0, 2), b= new DownLoadingAll().object_back + File.separatorChar + gson.get(key).getAsJsonObject().get("hash").getAsString().substring(0, 2);
+			isMkdirs(a);isMkdirs(b);
+			Download.download(object_url, a + File.separatorChar + gson.get(key).getAsJsonObject().get("hash").getAsString());
+			Download.download(object_url, b + File.separatorChar + gson.get(key).getAsJsonObject().get("hash").getAsString());
 		}
 	}
 
 	public static String downloadClient() {
-		return new Gson().fromJson(getJson(new DownLoadingAll().version_mainfest), JsonObject.class).get("downloads").getAsJsonObject().get("client").getAsJsonObject().get("url").getAsString();
+		return new Gson().fromJson(getJson(downLoadingAll.version_mainfest), JsonObject.class).get("downloads").getAsJsonObject().get("client").getAsJsonObject().get("url").getAsString();
 	}
 
 	public static String downloadServer() {
-		return new Gson().fromJson(getJson(new DownLoadingAll().version_mainfest), JsonObject.class).get("downloads").getAsJsonObject().get("server").getAsJsonObject().get("url").getAsString();
+		return new Gson().fromJson(getJson(downLoadingAll.version_mainfest), JsonObject.class).get("downloads").getAsJsonObject().get("server").getAsJsonObject().get("url").getAsString();
 	}
 
 	public static String downloadClientMappings() {
-		return new Gson().fromJson(getJson(new DownLoadingAll().version_mainfest), JsonObject.class).get("downloads").getAsJsonObject().get("client_mappings").getAsString();
+		return new Gson().fromJson(getJson(downLoadingAll.version_mainfest), JsonObject.class).get("downloads").getAsJsonObject().get("client_mappings").getAsString();
 	}
 
 	public static String downloadServerMappings() {
-		return new Gson().fromJson(getJson(new DownLoadingAll().version_mainfest), JsonObject.class).get("downloads").getAsJsonObject().get("server_mappings").getAsString();
+		return new Gson().fromJson(getJson(downLoadingAll.version_mainfest), JsonObject.class).get("downloads").getAsJsonObject().get("server_mappings").getAsString();
 	}
 
-	public static final String get_user_dir = System.getProperty("user.dir");
-	public final String version_mainfest = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "version_mainfest.json";
-	public final String indexes = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "assets" + File.separatorChar + "indexes" + File.separatorChar + getAssetsIndex("id") + ".json";
-	public final String client_version = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "MC" + File.separatorChar + ationGradleExtensions.gameVersion;
-	public final String server_version = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "Server" + File.separatorChar + ationGradleExtensions.gameVersion;
-	public final String mappings = getProject().getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separatorChar + "ation-gradle" + File.separatorChar + "mappings";
+
 	@TaskAction
 	public void downloadAll(){
+		/**
+		 * @author baka4n
+		 * @since  download DownloadJni.dll
+		 */
 		try {
+
 			URL url =  new URL("https://github.com/Over-Run/maven/raw/main/DownloadJni.dll");
 			BufferedInputStream bis = new BufferedInputStream(url.openStream());
 			FileOutputStream fis = new FileOutputStream(get_user_dir + File.separatorChar + "DownloadJni.dll");
 			byte[] buffer = new byte[1024];
-			int count = 0;
+			@SuppressWarnings("UnusedAssignment") int count = 0;
 			while ((count = bis.read(buffer, 0, 1024)) != -1) {
 				fis.write(buffer, 0, count);
 			}
@@ -92,9 +93,7 @@ public class DownLoadingAll extends Task{
 		Download.download(getJson(ationGradleExtensions.gameVersion), version_mainfest);
 		Download.download(getAssetsIndex("url"), indexes);
 		getAssetsObject();
-		File file = new File(client_version), file1 = new File(server_version);
-		if (file.exists()) file.mkdirs();
-		if (file1.exists()) file1.mkdirs();
+		isMkdirs(client_version);isMkdirs(server_version);
 		Download.download(downloadClient(), client_version + File.separatorChar + ationGradleExtensions.gameVersion + ".jar");
 		Download.download(downloadServer(), server_version + File.separatorChar + ationGradleExtensions.gameVersion + ".jar");
 		Download.download(downloadClientMappings(), mappings + File.separatorChar + ationGradleExtensions.gameVersion + "-client.jar");

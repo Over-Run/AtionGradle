@@ -22,8 +22,4 @@ public class AtionGradleExtensions {
 		return file;
 	}
 
-	public String getUserCachePath() {
-		return project.getGradle().getGradleUserHomeDir().getAbsolutePath() + File.separator + "caches" + File.separator + "ation-gradle";
-	}
-
 }
