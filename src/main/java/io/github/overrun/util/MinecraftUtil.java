@@ -11,18 +11,6 @@ import java.util.*;
 import static io.github.overrun.util.UrlUtil.readString;
 
 public class MinecraftUtil {
-	public static File getMinecraftDirs() {
-		File minecraftFolder;
-
-		if (getOsName().contains("win")) {// windows
-			minecraftFolder = new File(System.getenv("APPDATA"), ".minecraft");
-		} else if (getOsName().contains("mac")) {// mac
-			minecraftFolder = new File(System.getProperty("user.home"), "Library" + "/" + "Application Support" + "/" + "minecraft");
-		} else {// linux
-			minecraftFolder = new File(System.getProperty("user.home"), ".minecraft");
-		}
-		return minecraftFolder;
-	}
 
 	private static String getOsName() {
 		return System.getProperty("os.name").toLowerCase(Locale.ROOT);
